@@ -87,7 +87,7 @@ function App() {
         />
       ))}
 
-      <main className="text-center z-10">
+      <main className="text-center z-10 pt-10">
         <motion.h1
           className="text-6xl font-bold mb-4 text-shadow"
           initial={{ opacity: 0, y: -50 }}
