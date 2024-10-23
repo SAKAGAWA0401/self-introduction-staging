@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { SocialLinks } from 'c:/Projects/self-introduction/src/components/social/SocialLinks';
 import { motion } from 'framer-motion';
 
 function App() {
@@ -117,6 +118,11 @@ function App() {
       </main>
 
       <footer className="mt-16 space-x-8 z-10">
+        <SocialLinks
+            githubUrl="https://github.com/yourusername"
+            linkedinUrl="https://linkedin.com/in/yourusername"
+            salesforceUrl="https://trailblazer.me/id/yourusername"
+        />
         <motion.a
           href="https://blog.sloperiver.com"
           className="inline-block px-6 py-3 bg-white text-blue-900 rounded-full font-semibold hover:bg-blue-100 transition-colors cursor-glow"
