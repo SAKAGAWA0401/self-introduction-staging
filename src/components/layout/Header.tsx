@@ -11,7 +11,7 @@ const Header: React.FC = () => {
           <a href="#" className="text-white hover:text-blue-200 transition-colors">About</a>
           <a href="#" className="text-white hover:text-blue-200 transition-colors">Contact</a>
         </nav>
-        <button className="md:hidden text-white">
+        <button className="md:hidden text-white" title="Menu">
           <Menu size={24} />
         </button>
       </div>
