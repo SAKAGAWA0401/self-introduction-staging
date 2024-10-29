@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { SocialLinks } from 'c:/Projects/self-introduction/src/components/social/SocialLinks';
+import { SocialLinks } from './components/social/SocialLinks';
 import { motion } from 'framer-motion';
 
 function App() {
