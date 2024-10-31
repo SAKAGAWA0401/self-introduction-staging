@@ -105,6 +105,14 @@ function App() {
         >
           I'm Ryota Sakagawa
         </motion.h2>
+        <motion.h2
+          className="text-4xl font-semibold mb-8 text-shadow"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
+          I live in Perth, Australia.
+        </motion.h2>        
         <motion.ul
           className="space-y-4 text-xl"
           initial={{ opacity: 0 }}
