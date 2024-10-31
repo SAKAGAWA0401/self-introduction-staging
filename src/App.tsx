@@ -119,17 +119,25 @@ function App() {
 
       <footer className="mt-16 space-x-8 z-10">
         <SocialLinks
-            githubUrl="https://github.com/yourusername"
-            linkedinUrl="https://linkedin.com/in/yourusername"
-            salesforceUrl="https://trailblazer.me/id/yourusername"
+            githubUrl="https://github.com/SAKAGAWA0401"
+            linkedinUrl="https://linkedin.com/in/ryota-sakagawa"
+            salesforceUrl="https://www.salesforce.com/trailblazer/rsakagawa"
         />
+        <motion.a
+          href="https://zenn.dev/rts0401"
+          className="inline-block px-6 py-3 bg-white text-blue-900 rounded-full font-semibold hover:bg-blue-100 transition-colors cursor-glow"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          Visit my Tech-Blog
+        </motion.a>        
         <motion.a
           href="https://blog.sloperiver.com"
           className="inline-block px-6 py-3 bg-white text-blue-900 rounded-full font-semibold hover:bg-blue-100 transition-colors cursor-glow"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
-          Visit my Blog
+          Visit my Aus-Blog
         </motion.a>
         <motion.a
           href="https://portfolio.sloperiver.com"
