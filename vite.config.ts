@@ -9,7 +9,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 // Viteの設定
 export default defineConfig({
   plugins: [react()],
-  base: '/self-introduction/', // リポジトリ名に合わせて設定
+  base: '/', // リポジトリ名に合わせて設定
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src')  // `src`を`@`で参照できるようにする
