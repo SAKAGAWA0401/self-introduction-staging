@@ -25,8 +25,9 @@ jobs:
       - name: Build project
         run: npm run build
 
-      # 本番環境へのデプロイ前に robots.txt を削除
+      # 本番環境の場合のみ robots.txt を削除
       - name: Remove robots.txt for production
+        if: github.repository == 'sakagawa0401/self-introduction' # prodリポジトリの名前を指定
         run: rm -f ./dist/robots.txt
 
       - name: Deploy to GitHub Pages
@@ -35,4 +36,4 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
           publish_branch: gh-pages
-          cname: 'staging.sloperiver.com'
+          cname: ${{ github.repository == 'sakagawa0401/self-introduction-staging' && 'staging.sloperiver.com' || 'sloperiver.com' }}
