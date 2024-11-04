@@ -27,7 +27,6 @@ jobs:
 
       # 本番環境の場合のみ robots.txt を削除
       - name: Remove robots.txt for production
-        if: github.repository == 'sakagawa0401/self-introduction' # prodリポジトリの名前を指定
         run: rm -f ./dist/robots.txt
 
       - name: Deploy to GitHub Pages
