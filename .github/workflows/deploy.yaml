@@ -1,4 +1,4 @@
-name: Deploy to Production
+name: Deploy to Staging or Production
 
 on:
   workflow_dispatch:
@@ -25,8 +25,14 @@ jobs:
       - name: Build project
         run: npm run build
 
+      # ステージング環境の場合のみ robots.txt をコピー
+      - name: Copy robots.txt for staging
+        if: github.repository == 'sakagawa0401/self-introduction-staging'
+        run: cp robots.txt ./dist/robots.txt
+
       # 本番環境の場合のみ robots.txt を削除
       - name: Remove robots.txt for production
+        if: github.repository == 'sakagawa0401/self-introduction'
         run: rm -f ./dist/robots.txt
 
       - name: Deploy to GitHub Pages
