@@ -34,7 +34,7 @@ jobs:
 
       - name: Copy changes to production repo
         run: |
-          rsync -av --exclude=.git --delete ./ ./prod-repo/
+          rsync -av --exclude=.git --exclude='.bolt' --delete ./ ./prod-repo/
 
       - name: Commit changes
         run: |
