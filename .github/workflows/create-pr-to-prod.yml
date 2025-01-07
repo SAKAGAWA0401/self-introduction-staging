@@ -29,7 +29,7 @@ jobs:
       - name: Clone the production repository
         run: |
           git clone \
-            https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/your-org/production-repo.git \
+            https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/sakagawa0401/self-introduction.git \
             prod-repo
 
       - name: Copy changes to production repo
