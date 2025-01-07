@@ -1,0 +1,62 @@
+name: Create PR to Production
+
+on:
+  push:
+    branches:
+      - main  # staging repopのmain branchにpushされた時
+
+jobs:
+  create-pr:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write   # productionリポジトリにpushするために必要
+      pull-requests: write  # Pull Requestを作成するために必要
+
+    steps:
+      - name: Check out staging repository
+        uses: actions/checkout@v4
+        with:
+          # stagingリポジトリ自身(同じリポジトリ)の場合
+          repository: sakagawa0401/self-introduction-staging
+          ref: main  # stagingブランチ
+
+      - name: Set up git config
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Clone the production repository
+        run: |
+          git clone \
+            https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/your-org/production-repo.git \
+            prod-repo
+
+      - name: Copy changes to production repo
+        run: |
+          rsync -av --exclude=.git --delete ./ ./prod-repo/
+
+      - name: Commit changes
+        run: |
+          cd prod-repo
+          # 新規ブランチを切る(適宜わかりやすい命名をする)
+          export BRANCH_NAME="staging-sync-$(date +'%Y%m%d%H%M%S')"
+          git checkout -b $BRANCH_NAME
+
+          git add .
+          git commit -m "Sync from staging $(date +'%Y-%m-%d %H:%M:%S')" || echo "No changes to commit"
+
+          # push
+          git push origin $BRANCH_NAME
+
+      - name: Create Pull Request to production repo
+        uses: peter-evans/create-pull-request@v7
+        with:
+            token: ${{ secrets.PAT_TOKEN }}  # Personal Access Token with appropriate permissions
+            base: main
+            title: "Sync from staging"
+            body: |
+                自動生成されたPull Requestです。
+                stagingリポジトリの最新コミットを同期しました。
+            branch: ${{ env.BRANCH_NAME }}
+

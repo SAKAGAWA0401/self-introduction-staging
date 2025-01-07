@@ -140,14 +140,6 @@ function App() {
           Visit my Tech-Blog
         </motion.a>        
         <motion.a
-          href="https://blog.sloperiver.com"
-          className="inline-block px-6 py-3 bg-white text-blue-900 rounded-full font-semibold hover:bg-blue-100 transition-colors cursor-glow"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          Visit my Aus-Blog
-        </motion.a>
-        <motion.a
           href="https://portfolio.sloperiver.com"
           className="inline-block px-6 py-3 bg-white text-blue-900 rounded-full font-semibold hover:bg-blue-100 transition-colors cursor-glow"
           whileHover={{ scale: 1.05 }}
