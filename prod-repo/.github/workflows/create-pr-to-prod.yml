@@ -1,0 +1,72 @@
+name: Create PR to Production
+
+on:
+  push:
+    branches:
+      - main  # staging repopのmain branchにpushされた時
+
+jobs:
+  create-pr:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write   # productionリポジトリにpushするために必要
+      pull-requests: write  # Pull Requestを作成するために必要
+
+    steps:
+      - name: Check out staging repository
+        uses: actions/checkout@v4
+        with:
+          # stagingリポジトリ自身(同じリポジトリ)の場合
+          repository: sakagawa0401/self-introduction-staging
+          ref: main  # stagingブランチ
+
+      - name: Debug Token
+        run: |
+          echo "Using token: ${{ secrets.PAT_TOKEN }}"
+
+      - name: Set up git config
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          echo "Git config settings:"
+          git config --list
+
+      - name: Clone the production repository
+        run: |
+          git clone \
+            https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/sakagawa0401/self-introduction.git \
+            prod-repo
+            rm -rf prod-repo/.git
+
+      - name: Verify cloned repository
+        run: |
+          ls -la prod-repo
+          cd prod-repo
+          git remote -v
+
+      - name: Copy changes to production repo
+        run: |
+          rsync -av --exclude=.git --exclude='.bolt' --delete ./ ./prod-repo/
+
+      - name: Commit changes
+        run: |
+          cd prod-repo
+          export BRANCH_NAME="staging-sync-$(date +'%Y%m%d%H%M%S')"
+          echo "Branch name: $BRANCH_NAME"
+          git checkout -b $BRANCH_NAME
+          git add .
+          git commit -m "Sync from staging $(date +'%Y-%m-%d %H:%M:%S')" || echo "No changes to commit"
+          git push origin $BRANCH_NAME || { echo "Push failed"; exit 1; }
+          echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV 
+
+      - name: Create Pull Request to production repo using GitHub CLI
+        env:
+          GH_TOKEN: ${{ secrets.PAT_TOKEN }}  # GitHub CLI に渡すトークン
+        run: |
+          gh pr create \
+            --repo sakagawa0401/self-introduction \
+            --base main \
+            --head $BRANCH_NAME \
+            --title "Sync from staging" \
+            --body "自動生成された Pull Request です。"
