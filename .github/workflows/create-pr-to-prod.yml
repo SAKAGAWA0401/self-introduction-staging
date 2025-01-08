@@ -54,6 +54,7 @@ jobs:
           git add .
           git commit -m "Sync from staging $(date +'%Y-%m-%d %H:%M:%S')" || echo "No changes to commit"
           git push origin $BRANCH_NAME || { echo "Push failed"; exit 1; }
+          echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV 
 
       - name: Create Pull Request to production repo
         uses: peter-evans/create-pull-request@v7
