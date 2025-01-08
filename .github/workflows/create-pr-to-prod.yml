@@ -21,21 +21,23 @@ jobs:
           repository: sakagawa0401/self-introduction-staging
           ref: main  # stagingブランチ
 
-      - name: Set git identity
-        run: |
-            git config user.name "github-actions[bot]"
-            git config user.email "github-actions[bot]@users.noreply.github.com"  
-
       - name: Set up git config
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          echo "Git config settings:"
+          git config --list
 
       - name: Clone the production repository
         run: |
           git clone \
             https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/sakagawa0401/self-introduction.git \
             prod-repo
+      - name: Verify cloned repository
+        run: |
+          ls -la prod-repo
+          cd prod-repo
+          git remote -v
 
       - name: Copy changes to production repo
         run: |
