@@ -60,12 +60,6 @@ jobs:
           git push origin $BRANCH_NAME || { echo "Push failed"; exit 1; }
           echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV 
 
-      - name: Check GitHub Actions permissions
-        env:
-          GH_TOKEN: ${{ secrets.PAT_TOKEN }}
-        run: |
-          gh api /repos/sakagawa0401/self-introduction-staging/actions/permissions --jq '.'    
-
       - name: Create Pull Request to production repo
         uses: peter-evans/create-pull-request@v7
         with:
