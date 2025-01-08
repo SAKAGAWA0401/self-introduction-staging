@@ -63,7 +63,7 @@ jobs:
       - name: Create Pull Request to production repo
         uses: peter-evans/create-pull-request@v7
         with:
-            token: ${{ secrets.PAT_TOKEN }}  # Personal Access Token with appropriate permissions
+            token: ${{ secrets.GITHUB_TOKEN }}  # Personal Access Token with appropriate permissions
             base: main
             title: "Sync from staging"
             body: |
