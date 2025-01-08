@@ -61,6 +61,8 @@ jobs:
           echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV 
 
       - name: Check GitHub Actions permissions
+        env:
+          GH_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
           gh api /repos/sakagawa0401/self-introduction-staging/actions/permissions --jq '.'    
 
