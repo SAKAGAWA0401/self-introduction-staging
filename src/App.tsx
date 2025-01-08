@@ -125,7 +125,7 @@ function App() {
         </motion.ul>
       </main>
 
-      <footer className="mt-16 space-x-8 z-10">
+      <footer className="flex justify-center space-x-8">
         <SocialLinks
             githubUrl="https://github.com/SAKAGAWA0401"
             linkedinUrl="https://linkedin.com/in/ryota-sakagawa"
